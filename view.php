@@ -1,7 +1,7 @@
 <?php
 
 // Create connection
-$con=mysqli_connect("localhost","root","123456","471");
+$con=mysqli_connect("localhost","student","ensf","471");
 
 // Check connection
 if (mysqli_connect_errno($con))

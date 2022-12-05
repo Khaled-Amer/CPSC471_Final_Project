@@ -8,13 +8,14 @@ echo $name. "<br>". $email. "<br>";
 
 
 // Create connection
-$con=mysqli_connect("localhost","root","123456","471");
+$con=mysqli_connect("localhost","student","ensf","471");
+//echo $con;
 
 // Check connection
-if (mysqli_connect_errno($con))
-  {
-  echo "Failed to connect to MySQL: " . mysqli_connect_error();
-  }
+// if (mysqli_connect_errno($con))
+//   {
+//   echo "Failed to connect to MySQL: " . mysqli_connect_error();
+//   }
   
   $sql = "INSERT INTO users (Name, Email) VALUES ('". $name."','". $email ."')";
  
