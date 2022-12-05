@@ -17,7 +17,7 @@
             <input type="submit" value="Submit" class="form-button">
             <input type="reset" value="Reset" class="form-button">
         </form>
-
+        <a class="button"href="register.php">Register</a>
     </div>
 </body>
 

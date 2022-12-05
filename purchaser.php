@@ -76,6 +76,10 @@ function createTicket($P_ID, $Passport_Num, $fNo) {
         echo "Flight Number: ";
         echo $fNo;
     }
+    else{
+        echo "<br>";
+        echo "Purchase Failed";
+    }
 }
 
 
