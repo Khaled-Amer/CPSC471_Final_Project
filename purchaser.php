@@ -18,10 +18,38 @@ function derivingAllFlights() {
     $derivingSuccess =  mysqli_num_rows($result);
 
     if ($derivingSuccess > 0) {
+        echo "<br>Flights Available: <br>";
         while ($row = mysqli_fetch_row($result)) {
-            echo "<br>";
+            
             echo "<p><b>FlightID:</b> ".$row[0]." <b>DepartureTime:</b> ".$row[1]."</p>";
         }
+    }
+    else{
+        echo "<br>No Flights Available<br>";
+    }
+
+
+    mysqli_close($con);
+}
+
+function derivingAllTickets($P_ID) {
+    $con=mysqli_connect("localhost","student","ensf","471");
+    $query="SELECT Ticket_Number, Flight_Number FROM Ticket WHERE P_ID = ".$P_ID.";";
+
+    $result = mysqli_query($con,$query);
+
+    $derivingSuccess =  mysqli_num_rows($result);
+
+    if ($derivingSuccess > 0) {
+        echo "<br>Tickets Purchased: <br>";
+        while ($row = mysqli_fetch_row($result)) {
+            
+            echo "<p><b>Ticket_Number:</b> ".$row[0]." <b>Flight_Number:</b> ".$row[1]."</p>";
+        }
+    }
+    else
+    {
+        echo "<br>No Tickets Purchased <br>";
     }
 
 
@@ -36,7 +64,7 @@ function createTicket($P_ID, $Passport_Num, $fNo) {
     $query="INSERT INTO TICKET VALUES  (" . $ticketNum . ",'" . $P_ID ."'," . '500' . ",'" . $Passport_Num . "'," . $fNo . ");";
    
     $result = mysqli_query($con,$query);
-    echo $result;
+    
 
     if($result){
         echo "<br>";
@@ -107,9 +135,13 @@ echo "<br>";
 
         <?php if(!isset($_POST['FlightNumber'])):?>
             <?php
+                
                 derivingAllFlights();
+                
+                derivingAllTickets($P_ID);
             ?>
             <div class="flight-chooser">
+                <br>
                 <form class="login-form" method="POST">
                     <label for="FlightNumber" class="form-label">FlightNumber:</label>
                     <input type="text" id="FlightNumber" name="FlightNumber" placeholder="Enter the Flight Number">
