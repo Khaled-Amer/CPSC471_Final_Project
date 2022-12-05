@@ -7,7 +7,7 @@ $_SESSION['username'] = $username;
 
 <?php
 $con=mysqli_connect("localhost","student","ensf","471");
-$query="SELECT Username, Password FROM USER WHERE Username = '" . $username . "' AND Password = '".$password."'";
+$query="SELECT Username, Password, SSN FROM USER WHERE Username = '" . $username . "' AND Password = '".$password."'";
 
 $result = mysqli_query($con,$query);
 
@@ -16,13 +16,14 @@ $loginSuccess =  mysqli_num_rows($result);
 
 // Legacy Code - IGNORE
 // print_r($result);
-// if ($result) {
-//     while ($row = mysqli_fetch_row($result)) {
-//         echo $row[0];
-//         echo "<br>";
-//         echo $row[1];
-//     }
-// }
+if ($result) {
+    while ($row = mysqli_fetch_row($result)) {
+        // echo $row[0];
+        // echo "<br>";
+        // echo $row[1];
+        $_SESSION['SSN'] = $row[2];
+    }
+}
 // else {
 //     echo "FAILED LOGIN";
 // }
