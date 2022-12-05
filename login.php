@@ -33,9 +33,9 @@ if ($loginSuccess) {
     $resultStaff = mysqli_query($con, $queryStaff);
     $loginSuccessStaff =  mysqli_num_rows($resultStaff);
     if($loginSuccessStaff) {
-        header("Location: http://localhost/CPSC471_Final_Project/staff.php");
+        header("Location: staff.php");
     } else {
-        header("Location: http://localhost/CPSC471_Final_Project/purchaser.php");
+        header("Location: purchaser.php");
     }
     
 }
