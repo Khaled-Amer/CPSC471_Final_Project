@@ -8,6 +8,7 @@ $SSN = $_SESSION['SSN'];
 
 function obtainPassengerDetails() {}
 
+
 function derivingAllFlights() {
     $con=mysqli_connect("localhost","student","ensf","471");
     $query="SELECT Flight_Number, Departure_Time FROM FLIGHT";
@@ -27,8 +28,26 @@ function derivingAllFlights() {
     mysqli_close($con);
 }
 
-function createTicket($PassengerID, $PassengerPassport, $fNo) {
+function createTicket($P_ID, $Passport_Num, $fNo) {
+    $con=mysqli_connect("localhost","student","ensf","471");
 
+    $ticketNum = $fNo.substr($P_ID,0,4);
+
+    $query="INSERT INTO TICKET VALUES  (" . $ticketNum . ",'" . $P_ID ."'," . '500' . ",'" . $Passport_Num . "'," . $fNo . ");";
+   
+    $result = mysqli_query($con,$query);
+    echo $result;
+
+    if($result){
+        echo "<br>";
+        echo "Ticket Purchase Succesfull!";
+        echo "<br>";
+        echo "Ticket Number: ";
+        echo $ticketNum;
+        echo "<br>";
+        echo "Flight Number: ";
+        echo $fNo;
+    }
 }
 
 
@@ -36,7 +55,9 @@ function createTicket($PassengerID, $PassengerPassport, $fNo) {
 ?>
 
 <?php
-echo "LOGIN PURCHASER SUCCESS";
+echo "LOGIN PURCHASER SUCCESS!";
+echo "<br>";
+echo "SSN: ";
 echo $SSN;
 $P_ID;
 $Passport_Num;
@@ -66,8 +87,10 @@ if ($result2) {
 mysqli_close($con);
 
 echo "<br>";
+echo "Passenger ID: ";
 echo $P_ID;
 echo "<br>";
+echo "Passport Number: ";
 echo $Passport_Num;
 echo "<br>";
 
@@ -77,7 +100,9 @@ echo "<br>";
 <html>
     <body>
         <?php if(isset($_POST['FlightNumber'])):?>
-            createTicket();
+            <?php
+                createTicket($P_ID, $Passport_Num, $_POST['FlightNumber']);
+            ?>
         <?php endif ?>
 
         <?php if(!isset($_POST['FlightNumber'])):?>
@@ -88,6 +113,7 @@ echo "<br>";
                 <form class="login-form" method="POST">
                     <label for="FlightNumber" class="form-label">FlightNumber:</label>
                     <input type="text" id="FlightNumber" name="FlightNumber" placeholder="Enter the Flight Number">
+            
                     <input type="submit" value="Submit" class="form-button">
                     <input type="reset" value="Reset" class="form-button">
                 </form>
