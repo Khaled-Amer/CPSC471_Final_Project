@@ -1,5 +1,3 @@
-
-
 <Html>  
     <body>  
         <?php
@@ -8,26 +6,21 @@
             }
 
             function addPassenger(){
-                echo "ASDSDA";
+               
                 $Username = $_POST['Username'];
                 $Password = $_POST['Password'];
                 $SSN = $_POST['SSN'];
                 $Firstname = $_POST['Firstname'];
                 $Lastname = $_POST['Lastname'];
                 $Sex = $_POST['Sex'];
-                $Birthdate = $_POST['Birthdate'];
+                $Birthdate = date('Y-m-d', strtotime($_POST['Birthdate']));
 
-                echo $Username;
-                echo "\r";
-                echo $Password;
-                echo $SSN;
-                echo $Birthdate;
-
-                #$con=mysqli_connect("localhost","student","ensf","471");
-
-                #$query="INSERT INTO FLIGHT VALUES  ('" . $flight . "','" . $DT . "', '" . $AT . "', '" . $airline . "', '" . $PS . "', '" . $AR . "', '" . $DR . "', '" . $GN . "')";
-
+                $con=mysqli_connect("localhost","student","ensf","471");
+                $query="INSERT INTO USER VALUES  ('" . $Username . "'," . $SSN .",'" . $Password . "','" . $Firstname . "','" . $Lastname . "','" . $Birthdate . "','". $Sex . "');";
                 $result = mysqli_query($con,$query);
+                if($result){
+                    echo "Succesfully created!";
+                }
             }
 
         ?>
@@ -48,13 +41,13 @@
             <label> Lastname: </label>         
             <input type="text" name="Lastname" size="15"/> <br> <br>  
             <label> Sex: </label>         
-            <select id="Sex">
+            <select id="Sex" name="Sex">
                 <option value="M">Male</option>
                 <option value="F">Female</option>
                 <option value="O">Other</option>
             </select><br> <br>  
             <label for="start">Birth date:</label>
-            <input type="date" id="birthDate" name="birth date"a><br> <br>  
+            <input type="date" id="Birthdate" name="Birthdate"><br> <br>  
             <input type="submit" name="submit" value="Submit"/>  
         </form>  
     </body>  
