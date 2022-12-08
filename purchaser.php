@@ -93,8 +93,45 @@ function createTicket($P_ID, $Passport_Num, $fNo) {
         echo "<br>";
         echo "Purchase Failed";
     }
-}
 
+
+
+    mysqli_close($con);
+
+
+}
+    // Sees if dependent already exists in the DB, if not creates one.
+function createDependent($PU, $S, $F, $L, $B, $X, $P, $PasN) {
+
+    $con=mysqli_connect("localhost","student","ensf","471");
+    $query = "SELECT * FROM OTHER_TICKET_RECIPIENT WHERE PUsername = '". $PU . "' AND SSN = ". $S . " AND Fname = '" . $F . "' AND Lname = '".$L."' AND Bdate = '".$B."' AND Sex = '".$X."' AND P_ID =".$P;
+    //print($query);
+    $result = mysqli_query($con,$query);
+    if (mysqli_num_rows($result) == 0) {
+        $query3 = "SELECT max(P_ID) FROM PASSENGER";
+        $result3 = mysqli_query($con,$query3);
+        $currMaxID;
+        if ($result3) {
+            while ($row = mysqli_fetch_row($result3)) {
+                $currMaxID = $row[0];
+            }
+        }
+        $currMaxID++;
+
+        //creating a new passenger
+        $query4 = "INSERT INTO PASSENGER (P_ID, Passport_Num) VALUE (".$currMaxID.", '".$PasN."')";
+        $result4 = mysqli_query($con,$query4);
+
+        //creating a new Other_ticket_recipient
+        $query2 = "INSERT INTO OTHER_TICKET_RECIPIENT (PUsername, SSN, Fname, Lname, Bdate, Sex, P_ID) VALUE ('".$PU."',".$S.",'".$F."', '".$L."','".$B."', '".$X."',".$currMaxID.")";
+        $result2 = mysqli_query($con,$query2);
+        mysqli_close($con);
+        return $currMaxID;
+    }
+
+    return $P;
+    mysqli_close($con);
+}
 
 
 ?>
@@ -144,11 +181,21 @@ echo "<br>";
 
 <html>
     <body>
-        <?php if(isset($_POST['FlightNumber'])):?>
+        <?php if(isset($_POST['FlightNumber']) && !isset($_POST['Fname'])):?>
             <?php
                 createTicket($P_ID, $Passport_Num, $_POST['FlightNumber']);
             ?>
         <?php endif ?>
+        
+        <?php if(isset($_POST['FlightNumber']) && isset($_POST['Fname'])):?>
+            <?php
+                // See if dependent exists, if not create a profile, and then create a ticket.
+                $dPID = createDependent($username, $SSN, $_POST['Fname'], $_POST['Lname'], $_POST['Bdate'], $_POST['Sex'], $_POST['passengerID'], $_POST['passportNum']);
+                createTicket($dPID, $_POST['passportNum'], $_POST['FlightNumber']);
+            ?>
+        <?php endif ?>
+
+
 
         <?php if(!isset($_POST['FlightNumber'])):?>
             <?php
@@ -184,9 +231,12 @@ echo "<br>";
                     <label for="Sex" class="form-label">Sex:</label>
                     <input type="text" id="Sex" name="Sex" placeholder="M/F">
 
-                    <label for="passengerID" class="form-label">Sex:</label>
+                    <label for="passengerID" class="form-label">PassengerID:</label>
                     <input type="text" id="passengerID" name="passengerID" placeholder="Enter your passenger ID">
                     
+                    <label for="passportNum" class="form-label">PassportNumber:</label>
+                    <input type="text" id="passportNum" name="passportNum" placeholder="Enter the Flight Number">
+
                     <label for="FlightNumber" class="form-label">FlightNumber:</label>
                     <input type="text" id="FlightNumber" name="FlightNumber" placeholder="Enter the Flight Number">
 
