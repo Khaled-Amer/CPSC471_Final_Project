@@ -6,11 +6,11 @@ $flight = $_POST['flight'];
 
 $con=mysqli_connect("localhost","student","ensf","471");
 
-$query="INSERT INTO WORKS_FOR VALUES('" . $username . "', '" . $flight . "')";
+$query="DELETE FROM WORKS_FOR WHERE Username = '" . $username . "' AND Airline_Name = '" . $flight . "'";
 
 $result = mysqli_query($con,$query);
 echo $username;
-echo " is now working for ";
+echo " if now fired from ";
 echo $flight;
 
 ?>
