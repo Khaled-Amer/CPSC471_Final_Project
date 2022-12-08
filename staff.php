@@ -20,8 +20,9 @@ echo "LOGIN STAFF SUCCESS";
             <input type="button" value="remove Flight" onclick="location='remove.php'" />
             <input type="button" value="add staff to plane" onclick="location='staffFlight.php'" />
             <input type="button" value="Remove staff from plane" onclick="location='removestaffflight.php'" />
+            <input type="button" value="Add staff to prepare gate" onclick="location='addgate.php'" />
+            <input type="button" value="Staff has finished Prepring gate" onclick="location='removegate.php'" />
         </form>
-
     </div>
 </body>
 
