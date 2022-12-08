@@ -118,7 +118,7 @@ CREATE TABLE FUEL
 );
 
 CREATE TABLE TICKET
-(Ticket_Number	INT		NOT NULL,
+(Ticket_Number	INT		NOT NULL AUTO_INCREMENT,
 	P_ID 			INT 	NOT NULL,
 	 Price			INT		NOT NULL,
 	 Recipient_Pass	VARCHAR(255)	NOT NULL,
@@ -197,3 +197,5 @@ INSERT INTO RUNWAY (Runway_Number, Runway_Length) VALUE
 
 INSERT INTO FLIGHT (Departure_Time, Arrival_Time, Airline_Name, Plane_Serial, Arrival_Runway, Depart_Runway, Gate_Number) VALUE 
 ('2022-12-10 01:00:00', '2022-12-10 01:00:00', 'Korean Airlines', 'PS4444', '06L', '06L', 'C4');
+
+
