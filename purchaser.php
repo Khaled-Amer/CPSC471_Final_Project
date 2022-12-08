@@ -168,6 +168,33 @@ echo "<br>";
                 </form>
 
             </div>
+            <br>
+            <div class="flight-chooser-for-dependents">
+                <h4>Only fill out this field if you are buying a ticket for a dependent!</h4>
+                <form class="login-form" method="POST">
+                    <label for="Fname" class="form-label">First Name:</label>
+                    <input type="text" id="Fname" name="Fname" placeholder="Enter Dependent First Name">
+
+                    <label for="Lname" class="form-label">Last Name:</label>
+                    <input type="text" id="Lname" name="Lname" placeholder="Enter Dependent Last Name">
+
+                    <label for="Bdate" class="form-label">Birthdate:</label>
+                    <input type="text" id="Bdate" name="Bdate" placeholder="YYYY-MM-DD">
+
+                    <label for="Sex" class="form-label">Sex:</label>
+                    <input type="text" id="Sex" name="Sex" placeholder="M/F">
+
+                    <label for="passengerID" class="form-label">Sex:</label>
+                    <input type="text" id="passengerID" name="passengerID" placeholder="Enter your passenger ID">
+                    
+                    <label for="FlightNumber" class="form-label">FlightNumber:</label>
+                    <input type="text" id="FlightNumber" name="FlightNumber" placeholder="Enter the Flight Number">
+
+                    <input type="submit" value="Submit" class="form-button">
+                    <input type="reset" value="Reset" class="form-button">
+                </form>
+
+            </div>
         <?php endif ?>
 
         
